@@ -27,4 +27,12 @@ const StyledTable = styled(Table)`
     }
   }
 `;
-export { StyledTable }
+const StyledPostsPage = styled.div`
+  width: 100vw;
+  padding: 30px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export { StyledTable, StyledPostsPage }

@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Post, PostsActionTypes } from './postsTypes';
 
-export const fetchPosts = createAction(PostsActionTypes.FETCH_POSTS);
+export const fetchPosts = createAction<string>(PostsActionTypes.FETCH_POSTS);
 export const fetchPostsSuccess = createAction<Post[]>(PostsActionTypes.FETCH_POSTS_SUCCESS);
 export const fetchPostsFailure = createAction<string>(PostsActionTypes.FETCH_POSTS_FAILURE);
 

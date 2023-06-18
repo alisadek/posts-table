@@ -5,9 +5,10 @@ import { fetchPostsSuccess, fetchPostsFailure, deletePostSuccess, deletePostFail
 import { Post, PostsActionTypes } from './postsTypes';
 import { SagaIterator } from 'redux-saga';
 
-function* fetchPostsSaga():SagaIterator  {
+function* fetchPostsSaga(action: PayloadAction<string>):SagaIterator  {
   try {
-    const response = yield call(axios.get<Post[]>, 'https://jsonplaceholder.typicode.com/posts');
+    const searchQuery: string = action.payload;
+    const response = yield call(axios.get<Post[]>, 'https://jsonplaceholder.typicode.com/posts', { params: { q: searchQuery } });
     yield put(fetchPostsSuccess(response.data));
   } catch (error:any) {
     yield put(fetchPostsFailure(error.message));
