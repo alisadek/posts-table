@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store/store";
-import { Typography, IconButton } from "@mui/material";
+import { Typography, IconButton, Box, Button } from "@mui/material";
 import {
   HeaderContainer,
   PageContainer,
@@ -107,9 +107,14 @@ const PostDetails: React.FC = () => {
           )}
         </StyledContentContainer>
         {isEdit && (
+        <Box display="flex" justifyContent="center" gap={4}>
+          <Button onClick={()=> setIsEdit(false)} sx={{color: "#6c757d"}} variant="text">
+            Cancel
+          </Button>
           <StyledButton type="submit" variant="contained">
             Submit
           </StyledButton>
+        </Box>
         )}
       </StyledPaper>
     </PageContainer>
