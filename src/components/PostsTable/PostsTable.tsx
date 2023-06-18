@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -6,6 +7,7 @@ import {
     TableBody,
     TableCell,
     TableHead,
+    TableContainer,
     TablePagination,
     TableRow,
   } from "@mui/material";
@@ -21,7 +23,7 @@ const PostsTable = (props: Props) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState<number | null>(null);
-
+  const navigate = useNavigate();
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
     setPage(newPage);
   };
@@ -40,6 +42,7 @@ const PostsTable = (props: Props) => {
   const handleDeleteConfirm = () => {
     if (postIdToDelete) {
       dispatch(deletePost(postIdToDelete));
+      
     }
     setDeleteModalOpen(false);
     setPostIdToDelete(null);
@@ -55,10 +58,13 @@ const PostsTable = (props: Props) => {
   }, [dispatch]);
   if(loading) return <div>Loading...</div>
   if(error) return <div>{error}</div>
+
 return (
-<div style={{width: '1000px'}}>
-    <StyledTable>
-    <TableHead>
+    <div style={{width:'100vw', padding:'30px', height: '100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
+    <div style={{width: '100%'}}>
+    <TableContainer sx={{maxHeight: 440}}>
+    <StyledTable stickyHeader>
+     <TableHead>
       <TableRow>
         <TableCell align="left">Title</TableCell>
         <TableCell align="center">Description</TableCell>
@@ -71,30 +77,32 @@ return (
             <TableCell align="left">{post.title}</TableCell>
             <TableCell align="center">{post.body}</TableCell>
             <TableCell align="center">
-              <IconButton>
-                <DeleteIcon onClick={()=>handleDeleteClick(post.id)}/>
-              </IconButton>
-              <IconButton>
-                <EditIcon/>
+              <IconButton onClick={()=>handleDeleteClick(post.id)}>
+                <DeleteIcon />
+            </IconButton>
+              <IconButton  onClick= {()=> navigate(`/${post.id}`)}>
+                <EditIcon />
               </IconButton>
             </TableCell>
           </TableRow>
         ))}
     </TableBody>
     </StyledTable>
+    </TableContainer>
     <TablePagination
-    sx={{ px: 2 }}
-    page={page}
-    component="div"
-    rowsPerPage={rowsPerPage}
-    count={posts.length}
-    onPageChange={handleChangePage}
-    rowsPerPageOptions={[5, 10, 25]}
-    onRowsPerPageChange={handleChangeRowsPerPage}
-    nextIconButtonProps={{ "aria-label": "Next Page" }}
-    backIconButtonProps={{ "aria-label": "Previous Page" }}
-/>
-<DeleteModal open={deleteModalOpen} onClose={handleDeleteCancel} onConfirm={handleDeleteConfirm} />
+     sx={{ px: 2 }}
+     page={page}
+     component="div"
+     rowsPerPage={rowsPerPage}
+     count={posts.length}
+     onPageChange={handleChangePage}
+     rowsPerPageOptions={[5, 10, 25]}
+     onRowsPerPageChange={handleChangeRowsPerPage}
+     nextIconButtonProps={{ "aria-label": "Next Page" }}
+     backIconButtonProps={{ "aria-label": "Previous Page" }}
+    />
+    <DeleteModal open={deleteModalOpen} onClose={handleDeleteCancel} onConfirm={handleDeleteConfirm} />
+</div>
 </div>
   )
 }
