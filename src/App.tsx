@@ -1,13 +1,18 @@
 import React from 'react';
 import PostsTable from './components/PostsTable/PostsTable';
 import { CssBaseline } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PostDetails from './components/PostDetails/PostDetails';
 function App() {
   return (
     <>
       <CssBaseline />
-    <div style={{width:'100vw', height: '100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
-      <PostsTable />
-    </div>
+      <Router>
+      <Routes>
+        <Route index path="/" element={<PostsTable />}/>
+        <Route  path="/:postId" element={<PostDetails />} />
+      </Routes>
+    </Router>
     </>
   );
 }
