@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/breadfast-task/static/css/main.6b612017.css",
+    "main.js": "/breadfast-task/static/js/main.a1f2cfc6.js",
+    "index.html": "/breadfast-task/index.html",
+    "main.6b612017.css.map": "/breadfast-task/static/css/main.6b612017.css.map",
+    "main.a1f2cfc6.js.map": "/breadfast-task/static/js/main.a1f2cfc6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6b612017.css",
+    "static/js/main.a1f2cfc6.js"
+  ]
+}
