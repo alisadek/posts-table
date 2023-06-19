@@ -1,6 +1,6 @@
-# Breadfast Task
+# Posts Table
 
-This project is a task as part of an interview for a Senior Frontend Position at Breadfast, created using React, Redux, Sagas, Typescript, and Material-UI.
+This project is a posts table with all the CRUD Operations, created using React, Redux, Sagas, Typescript, and Material-UI.
 
 ## Description
 
@@ -27,7 +27,7 @@ Before running the project, make sure you have the following:
 1. Clone the repository:
 
 ```bash
-    git clone https://github.com/alisadek/breadfast-task
+    git clone https://github.com/alisadek/posts-table
 ```
 
 1. Navigate to the project directory:
@@ -54,8 +54,7 @@ The application will be accessible at http://localhost:3000.
 
 ## Additional Features/Improvements (Not Implemented)
 
-In addition to the required features, here are some additional features that could have been added
-if I had more time:
+In addition to the required features, here are some additional features that could be added:
 - Sorting functionality to arrange posts based on different criteria (e.g., title, author).
 - User interface enhancements such as animations, tooltips, or progress indicators.
 - Error handling and displaying meaningful error messages to the user.
