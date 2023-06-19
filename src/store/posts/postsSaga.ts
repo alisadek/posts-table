@@ -5,10 +5,11 @@ import { fetchPostsSuccess, fetchPostsFailure, deletePostSuccess, deletePostFail
 import { Post, PostsActionTypes } from './postsTypes';
 import { SagaIterator } from 'redux-saga';
 
+const postsUrl= `${process.env.REACT_APP_API_URL}/posts`
 function* fetchPostsSaga(action: PayloadAction<string>):SagaIterator  {
   try {
     const searchQuery: string = action.payload;
-    const response = yield call(axios.get<Post[]>, 'https://jsonplaceholder.typicode.com/posts', { params: { q: searchQuery } });
+    const response = yield call(axios.get<Post[]>, postsUrl, { params: { q: searchQuery } });
     yield put(fetchPostsSuccess(response.data));
   } catch (error:any) {
     yield put(fetchPostsFailure(error.message));
@@ -17,7 +18,7 @@ function* fetchPostsSaga(action: PayloadAction<string>):SagaIterator  {
 
 function* fetchPostSaga(action: PayloadAction<number>): SagaIterator {
   try {
-    const response = yield call(axios.get<Post>, `https://jsonplaceholder.typicode.com/posts/${action.payload}`);
+    const response = yield call(axios.get<Post>, `${postsUrl}/${action.payload}`);
     yield put(fetchPostSuccess(response.data));
   } catch (error: any) {
     yield put(fetchPostFailure(error.message));
@@ -26,7 +27,7 @@ function* fetchPostSaga(action: PayloadAction<number>): SagaIterator {
 
 function* updatePostSaga(action: PayloadAction<Post>): SagaIterator {
   try {
-    const response = yield call(axios.put, `https://jsonplaceholder.typicode.com/posts/${action.payload.id}`, action.payload);
+    const response = yield call(axios.put, `${postsUrl}/${action.payload.id}`, action.payload);
     yield put(updatePostSuccess(response.data));
   } catch (error: any) {
     yield put(updatePostFailure(error.message));
@@ -35,7 +36,7 @@ function* updatePostSaga(action: PayloadAction<Post>): SagaIterator {
 
 function* deletePostSaga(action: PayloadAction<number>):SagaIterator  {
   try {
-    yield call(axios.delete, `https://jsonplaceholder.typicode.com/posts/${action.payload}`);
+    yield call(axios.delete, `${postsUrl}/${action.payload}`);
     yield put(deletePostSuccess(action.payload));
   } catch (error:any) {
     yield put(deletePostFailure(error.message));
