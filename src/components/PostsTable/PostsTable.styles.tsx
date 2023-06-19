@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import {Table} from "@mui/material"
 const StyledTable = styled(Table)`
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 50px;
   white-space: pre;
   thead {
     tr {
@@ -12,6 +12,7 @@ const StyledTable = styled(Table)`
     font-weight: 700;
     height: 40px;
     text-transform: capitalize;
+        width: 30%;
     font-size: 1rem;        
       }
     }
@@ -22,6 +23,8 @@ const StyledTable = styled(Table)`
         padding-left: 16px;
         text-transform: capitalize;
         font-family: Nunito, sans-serif;
+        width: 30%;
+        white-space: pre-wrap;
     font-size: 1rem;   
       }
     }
@@ -32,6 +35,7 @@ const StyledPostsPage = styled.div`
   padding: 30px;
   height: 100vh;
   display: flex;
+  background-color:#edffef;
   justify-content: center;
   align-items: center;
 `;
