@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store/store";
-import { Typography, IconButton, Box, Button } from "@mui/material";
+import { Typography, IconButton, Box, Button, Skeleton } from "@mui/material";
 import {
   HeaderContainer,
   PageContainer,
@@ -39,7 +39,6 @@ const PostDetails: React.FC = () => {
       setFormData(post);
     }
   }, [post]);
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   if (!post) {
@@ -58,6 +57,16 @@ const PostDetails: React.FC = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
+  if (loading) {
+    return (
+      <PageContainer>
+        <StyledPaper>
+          <Skeleton animation="wave" height="30%" width="80%" />
+          <Skeleton animation="wave" height="100%" />
+        </StyledPaper>
+      </PageContainer>
+    );
+  }
   return (
     <PageContainer>
       <StyledPaper onSubmit={handleSubmit}>
@@ -75,7 +84,6 @@ const PostDetails: React.FC = () => {
               <StyledTitle
                 fontWeight={700}
                 fontFamily="Nunito, sans-serif"
-                color="#6c757d"
                 variant="h5"
               >
                 {post.title}
@@ -83,7 +91,7 @@ const PostDetails: React.FC = () => {
             )}
             {!isEdit && (
               <IconButton onClick={() => setIsEdit(true)}>
-                <EditIcon />
+                <EditIcon htmlColor="#aa0082" />
               </IconButton>
             )}
           </HeaderContainer>
@@ -100,21 +108,25 @@ const PostDetails: React.FC = () => {
             <Typography
               variant="body1"
               fontFamily="Nunito, sans-serif"
-              color="#abb1b5"
+              color="#212529"
             >
               {post.body}
             </Typography>
           )}
         </StyledContentContainer>
         {isEdit && (
-        <Box display="flex" justifyContent="center" gap={4}>
-          <Button onClick={()=> setIsEdit(false)} sx={{color: "#6c757d"}} variant="text">
-            Cancel
-          </Button>
-          <StyledButton type="submit" variant="contained">
-            Submit
-          </StyledButton>
-        </Box>
+          <Box display="flex" justifyContent="center" gap={4}>
+            <Button
+              onClick={() => setIsEdit(false)}
+              sx={{ color: "#aa0082" }}
+              variant="text"
+            >
+              Cancel
+            </Button>
+            <StyledButton type="submit" variant="contained">
+              Submit
+            </StyledButton>
+          </Box>
         )}
       </StyledPaper>
     </PageContainer>

@@ -15,8 +15,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ open, onClose, onConfirm }) =
         <p>Are you sure you want to delete this post?</p>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={onConfirm} variant="contained" color="error">
+        <Button sx={{color:'#aa0082'}} onClick={onClose}>Cancel</Button>
+        <Button sx={{backgroundColor:'#aa0082'}} onClick={onConfirm} variant="contained" color="error">
           Delete
         </Button>
       </DialogActions>

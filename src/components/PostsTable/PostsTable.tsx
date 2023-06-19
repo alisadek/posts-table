@@ -34,9 +34,11 @@ const PostsTable = (props: Props) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
-  const { data: posts, loading, error } = useSelector(
-    (state: RootState) => state.posts
-  );
+  const {
+    data: posts,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.posts);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -107,21 +109,33 @@ const PostsTable = (props: Props) => {
           gap: "15px",
         }}
       >
-        <TextField
-          variant="outlined"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-          sx={{ alignSelf: "end", width: "300px" }}
-          placeholder="Search..."
-        />
-
+        >
+          <img
+            src="https://www.breadfast.com/wp-content/themes/breadfast/website/images/breadfast-brand.svg"
+            alt="logo"
+          />
+          <TextField
+            variant="outlined"
+            value={searchQuery}
+            style={{ border: "1.5px solid #aa0082", borderRadius: "5px" }}
+            onChange={handleSearchChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon sx={{ color: "#aa0082" }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ alignSelf: "end", width: "300px" }}
+            placeholder="Search..."
+          />
+        </Box>
         {loading ? (
           <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
             <Skeleton variant="rectangular" height={56} />
@@ -130,17 +144,13 @@ const PostsTable = (props: Props) => {
             ))}
           </Box>
         ) : (
-          <>
+          <Box sx={{ border: "1.5px solid #aa0082", borderRadius: "8px" }}>
             <TableContainer sx={{ maxHeight: 440 }}>
               <StyledTable stickyHeader>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ maxWidth: "100px" }} align="left">
-                      Title
-                    </TableCell>
-                    <TableCell sx={{ maxWidth: "600px" }} align="left">
-                      Description
-                    </TableCell>
+                    <TableCell align="left">Title</TableCell>
+                    <TableCell align="left">Description</TableCell>
                     <TableCell align="center">Actions</TableCell>
                   </TableRow>
                 </TableHead>
@@ -167,10 +177,10 @@ const PostsTable = (props: Props) => {
                           <IconButton
                             onClick={() => handleDeleteClick(post.id)}
                           >
-                            <DeleteIcon />
+                            <DeleteIcon sx={{ color: "#aa0082" }} />
                           </IconButton>
                           <IconButton onClick={() => navigate(`/${post.id}`)}>
-                            <EditIcon />
+                            <EditIcon sx={{ color: "#aa0082" }} />
                           </IconButton>
                         </TableCell>
                       </TableRow>
@@ -190,7 +200,7 @@ const PostsTable = (props: Props) => {
               nextIconButtonProps={{ "aria-label": "Next Page" }}
               backIconButtonProps={{ "aria-label": "Previous Page" }}
             />
-          </>
+          </Box>
         )}
       </Box>
       <DeleteModal
