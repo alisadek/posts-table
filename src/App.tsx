@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route index path="/" element={<PostsTable />}/>
         <Route  path="/:postId" element={<PostDetails />} />
