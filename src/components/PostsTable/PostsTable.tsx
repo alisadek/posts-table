@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { debounce } from "lodash";
+import { deletePost, fetchPosts } from "../../store/posts/postsActions";
+
+import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   IconButton,
@@ -15,19 +22,20 @@ import {
   InputAdornment,
   Box,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { StyledPostsPage, StyledTable } from "./PostsTable.styles";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { deletePost, fetchPosts } from "../../store/posts/postsActions";
 import DeleteModal from "../DeleteModal/DeleteModal";
-import { debounce } from "lodash";
+import ViewPostModal from "../ViewPostModal/ViewPostModal";
+
+import { Post } from "../../store/posts/postsTypes";
+import { RootState } from "../../store/store";
+import { StyledPostsPage, StyledTable } from "./PostsTable.styles";
 
 type Props = {};
 
 const PostsTable = (props: Props) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState<number | null>(null);
   const navigate = useNavigate();
@@ -41,7 +49,7 @@ const PostsTable = (props: Props) => {
   } = useSelector((state: RootState) => state.posts);
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    _: any,
     newPage: number
   ) => {
     setPage(newPage);
@@ -67,6 +75,16 @@ const PostsTable = (props: Props) => {
     setPostIdToDelete(null);
   };
 
+  const handleViewClick = (post: Post) => {
+    setViewModalOpen(true);
+    setSelectedPost(post);
+  };
+
+  const handleViewCancel = () => {
+    setViewModalOpen(false);
+    setSelectedPost(null);
+  };
+  
   const handleDeleteCancel = () => {
     setDeleteModalOpen(false);
     setPostIdToDelete(null);
@@ -123,7 +141,6 @@ const PostsTable = (props: Props) => {
           <TextField
             variant="outlined"
             value={searchQuery}
-            style={{ border: "1.5px solid #aa0082", borderRadius: "5px" }}
             onChange={handleSearchChange}
             InputProps={{
               endAdornment: (
@@ -132,7 +149,7 @@ const PostsTable = (props: Props) => {
                 </InputAdornment>
               ),
             }}
-            sx={{ alignSelf: "end", width: "300px" }}
+            sx={{ alignSelf: "end", width: "300px",border: "1.5px solid #aa0082", borderRadius: "5px" }}
             placeholder="Search..."
           />
         </Box>
@@ -174,6 +191,9 @@ const PostsTable = (props: Props) => {
                           {post.body}
                         </TableCell>
                         <TableCell align="center">
+                          <IconButton onClick={() => handleViewClick(post)}>
+                            <VisibilityIcon sx={{ color: "#aa0082" }} />
+                          </IconButton>
                           <IconButton
                             onClick={() => handleDeleteClick(post.id)}
                           >
@@ -207,6 +227,11 @@ const PostsTable = (props: Props) => {
         open={deleteModalOpen}
         onClose={handleDeleteCancel}
         onConfirm={handleDeleteConfirm}
+      />
+      <ViewPostModal
+        post={selectedPost}
+        open={viewModalOpen}
+        onClose={handleViewCancel}
       />
     </StyledPostsPage>
   );
