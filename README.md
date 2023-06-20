@@ -27,7 +27,7 @@ Before running the project, make sure you have the following:
 1. Clone the repository:
 
 ```bash
-    git clone https://github.com/alisadek/posts-table
+    git clone https://github.com/alisadek/table
 ```
 
 1. Navigate to the project directory:
