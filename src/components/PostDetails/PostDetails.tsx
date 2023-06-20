@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { RootState } from "../../store/store";
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPost, updatePost } from "../../store/posts/postsActions";
+
 import { Typography, IconButton, Box, Button, Skeleton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+
+import { RootState } from "../../store/store";
+import { Post } from "../../store/posts/postsTypes";
 import {
   HeaderContainer,
   PageContainer,
@@ -12,9 +18,6 @@ import {
   StyledTextField,
   StyledTitle,
 } from "./PostDetails.styles";
-import EditIcon from "@mui/icons-material/Edit";
-import { fetchPost, updatePost } from "../../store/posts/postsActions";
-import { Post } from "../../store/posts/postsTypes";
 
 const PostDetails: React.FC = () => {
   const { postId } = useParams();
